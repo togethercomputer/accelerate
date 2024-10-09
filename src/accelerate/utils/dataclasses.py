@@ -28,6 +28,7 @@ from datetime import timedelta
 from typing import Any, Callable, Dict, Iterable, List, Literal, Optional, Tuple, Union, get_args
 
 import torch
+from torch.distributed._tensor import DeviceMesh
 
 from .constants import (
     FSDP_AUTO_WRAP_POLICY,
@@ -1584,6 +1585,12 @@ class FullyShardedDataParallelPlugin:
         default=None,
         metadata={
             "help": "The minimum number of parameters a module must have to be wrapped. Only applicable when `auto_wrap_policy` is `size_based_wrap`."
+        },
+    )
+    device_mesh: Optional[DeviceMesh] = field(
+        default=None,
+        metadata={
+            "help": "The device mesh used for device management and sharding."
         },
     )
 

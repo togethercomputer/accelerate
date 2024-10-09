@@ -1485,7 +1485,10 @@ class Accelerator:
                         "ignored_modules": fsdp_plugin.ignored_modules,
                         "limit_all_gathers": fsdp_plugin.limit_all_gathers,
                         "device_id": self.device,
+                        "device_mesh": fsdp_plugin.device_mesh,
                     }
+                    if kwargs.get("device_mesh"):
+                        kwargs.pop("sharding_strategy")
                     model = FSDP(model, **kwargs)
                     if fsdp_plugin.activation_checkpointing:
                         from torch.distributed.algorithms._checkpoint.checkpoint_wrapper import (
